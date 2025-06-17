@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Signup</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="login.js" type="module" defer></script>
+</head>
+<body>
+
+    <div class="decorative-elements">
+        <div class="circle circle-1"></div>
+        <div class="circle circle-2"></div>
+        <div class="circle circle-3"></div>
+    </div>
+
+    <div class="container">
+        <div class="image-section">
+            <div class="image-overlay"></div>
+
+            <div class="password-image">
+                <div class="lamp">
+                    <div class="lamp-cord"></div>
+                    <div class="lamp-head"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <div class="plant-decoration">
+                <div class="leaves">
+                    <div class="leaf"></div>
+                    <div class="leaf"></div>
+                    <div class="leaf"></div>
+                </div>
+                <div class="pot"></div>
+            </div>
+
+            <div class="form-container">
+                <h2 id="form-title">Sign In</h2>
+
+                <div class="input-group" id="name-field" style="display: none;">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="fName" name="firstname" placeholder="First Name" required>
+                </div>
+
+                <div class="input-group" id="name-field-last" style="display: none;">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="lName" name="lastname" placeholder="Last Name" required>
+                </div>
+
+                <div class="input-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="rEmail" name="email" placeholder="Email" required>
+                </div>
+
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="rPassword" name="password" placeholder="Password" required>
+                </div>
+
+                <a href="#" class="forgot-password">Forgot Password?</a>
+
+                <!-- Buttons for Sign In and Sign Up -->
+                <button id="submitSignIn" style="display: block;">Sign In</button>
+                <button id="submitSignUp" style="display: none;">Sign Up</button>
+
+                <p id="toggle-text">Don't have an account? <a href="#" id="toggle-btn">Sign Up</a></p>
+
+                <div class="social-login">
+                    <div class="social-btn facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </div>
+                    <div class="social-btn google">
+                        <i class="fab fa-google"></i>
+                    </div>
+                    <div class="social-btn twitter">
+                        <i class="fab fa-twitter"></i>
+                    </div>
+                </div>
+
+                <div class="page-dots">
+                    <div class="dot active"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="signUpMessage" style="display:none; position: fixed; top: 10px; left: 50%; transform: translateX(-50%); background: green; color: white; padding: 10px; border-radius: 5px; z-index: 1000;"></div>
+    <div id="signInMessage" style="display:none; position: fixed; top: 10px; left: 50%; transform: translateX(-50%); background: green; color: white; padding: 10px; border-radius: 5px; z-index: 1000;"></div>
+
+    <!-- Toggle form JavaScript -->
+    <script>
+        const toggleBtn = document.getElementById("toggle-btn");
+        const formTitle = document.getElementById("form-title");
+        const nameField = document.getElementById("name-field");
+        const nameFieldLast = document.getElementById("name-field-last");
+        const toggleText = document.getElementById("toggle-text");
+        const submitSignIn = document.getElementById("submitSignIn");
+        const submitSignUp = document.getElementById("submitSignUp");
+
+        toggleBtn.addEventListener("click", function toggleForm(e) {
+            e.preventDefault();
+            if (formTitle.textContent === "Sign In") {
+                formTitle.textContent = "Sign Up";
+                nameField.style.display = "block";
+                nameFieldLast.style.display = "block";
+                toggleText.innerHTML = 'Already have an account? <a href="#" id="toggle-btn">Sign In</a>';
+                submitSignIn.style.display = "none";
+                submitSignUp.style.display = "block";
+            } else {
+                formTitle.textContent = "Sign In";
+                nameField.style.display = "none";
+                nameFieldLast.style.display = "none";
+                toggleText.innerHTML = 'Don\'t have an account? <a href="#" id="toggle-btn">Sign Up</a>';
+                submitSignIn.style.display = "block";
+                submitSignUp.style.display = "none";
+            }
+            document.getElementById("toggle-btn").addEventListener("click", toggleForm);
+        });
+    </script>
+
+</body>
+</html>

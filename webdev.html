@@ -1,0 +1,2071 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Details | AdaptiveLearn</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 4px 20px rgba(107, 70, 193, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            color: #ffd43b;
+        }
+        
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .user-menu .notifications {
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .user-menu .notifications i {
+            font-size: 20px;
+        }
+        
+        .notifications-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: #ef4444;
+            color: white;
+            font-size: 10px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .user-profile:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .user-profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid white;
+        }
+        
+        /* Course Hero Section */
+        .course-hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/api/placeholder/1200/400');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 0 60px;
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .course-badge {
+            background-color: #10b981;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        
+        .course-hero h1 {
+            font-size: 42px;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .course-hero p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .course-stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .stat-item i {
+            color: #ffd43b;
+        }
+        
+        /* Navigation Menu */
+        .course-nav {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+            position: sticky;
+            top: 70px;
+            z-index: 900;
+        }
+        
+        .nav-items {
+            display: flex;
+            list-style-type: none;
+            overflow-x: auto;
+        }
+        
+        .nav-items li {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .nav-items a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 15px;
+            color: #555;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            gap: 8px;
+        }
+        
+        .nav-items a:hover {
+            color: #8b5cf6;
+        }
+        
+        .nav-items a.active {
+            color: #8b5cf6;
+            border-bottom: 3px solid #8b5cf6;
+        }
+        
+        /* Content Sections */
+        .content-section {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -1px;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #6366f1, #8b5cf6);
+            border-radius: 10px;
+        }
+        
+        .section-title i {
+            color: #8b5cf6;
+        }
+        
+        /* Information Section */
+        .course-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .info-card {
+            background-color: #f8f9fa;
+            border-radius: 12px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            border-left: 4px solid #8b5cf6;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        .info-card h3 {
+            color: #8b5cf6;
+            margin-bottom: 15px;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .info-card h3 i {
+            color: #6366f1;
+        }
+        
+        .info-card p {
+            margin-bottom: 10px;
+        }
+        
+        .info-card ul {
+            list-style-type: none;
+            margin-top: 10px;
+        }
+        
+        .info-card ul li {
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .info-card ul li i {
+            color: #10b981;
+            font-size: 14px;
+        }
+        
+        /* YouTube Playlist Section */
+        .playlist-section {
+            margin-top: 40px;
+        }
+        
+        .playlist-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .playlist-header h3 {
+            font-size: 22px;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .playlist-header h3 i {
+            color: #ef4444;
+        }
+        
+        .view-all {
+            color: #8b5cf6;
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .playlist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .video-card {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            background-color: white;
+        }
+        
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .video-thumbnail {
+            position: relative;
+            height: 180px;
+            background-color: #ddd;
+            overflow: hidden;
+        }
+        
+        .video-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .video-card:hover .video-thumbnail img {
+            transform: scale(1.05);
+        }
+        
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background-color: rgba(139, 92, 246, 0.8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .video-card:hover .play-button {
+            opacity: 1;
+        }
+        
+        .video-duration {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+        
+        .video-info {
+            padding: 15px;
+        }
+        
+        .video-info h4 {
+            margin-bottom: 8px;
+            font-size: 16px;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .video-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #777;
+            font-size: 13px;
+        }
+        
+        /* Learning Path */
+        .learning-path {
+            margin-top: 40px;
+        }
+        
+        .path-container {
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .path-line {
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: #e5e7eb;
+            z-index: 1;
+        }
+        
+        .path-item {
+            position: relative;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+        }
+        
+        .path-marker {
+            position: absolute;
+            left: -30px;
+            width: 30px;
+            height: 30px;
+            background-color: #8b5cf6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            z-index: 2;
+        }
+        
+        .path-content {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-left: 15px;
+            border-left: 4px solid #8b5cf6;
+        }
+        
+        .path-content h4 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        
+        .path-content p {
+            margin-bottom: 15px;
+        }
+        
+        .path-content .btn {
+            display: inline-block;
+            padding: 8px 15px;
+            background-color: #8b5cf6;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .path-content .btn:hover {
+            background-color: #7c3aed;
+        }
+        
+        /* Notes Section */
+        .notes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .note-card {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            border-top: 5px solid #fcd34d;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .note-card:hover {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transform: translateY(-5px);
+        }
+        
+        .note-card h3 {
+            margin-bottom: 10px;
+            color: #333;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .note-card h3 i {
+            color: #f59e0b;
+        }
+        
+        .note-card .date {
+            font-size: 13px;
+            color: #777;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .note-card p {
+            margin-bottom: 15px;
+            color: #555;
+        }
+        
+        .note-card a {
+            display: inline-flex;
+            align-items: center;
+            color: #8b5cf6;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            gap: 5px;
+        }
+        
+        .note-card a:hover {
+            color: #7c3aed;
+        }
+        
+        /* Test Section */
+        .test-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .test-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            border-left: 4px solid #3b82f6;
+        }
+        
+        .test-item:hover {
+            background-color: #f0f2f5;
+            transform: translateX(5px);
+        }
+        
+        .test-info {
+            flex: 1;
+        }
+        
+        .test-info h3 {
+            margin-bottom: 8px;
+            color: #333;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .test-info h3 i {
+            color: #3b82f6;
+        }
+        
+        .test-meta {
+            font-size: 14px;
+            color: #777;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .test-button {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .test-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+        }
+        
+        /* Feedback Section */
+        .feedback-form {
+            display: grid;
+            gap: 25px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group label {
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: #444;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .form-group label i {
+            color: #8b5cf6;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #8b5cf6;
+            box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2);
+            outline: none;
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+        
+        .rating-container {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .rating-item {
+            font-size: 25px;
+            cursor: pointer;
+            color: #d1d5db;
+        }
+        
+        .rating-item.active {
+            color: #f59e0b;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .submit-btn:hover {
+            background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(124, 58, 237, 0.3);
+        }
+        
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+            color: white;
+            padding: 50px 0 20px;
+            margin-top: 70px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 20px;
+            font-size: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 3px;
+            background-color: #8b5cf6;
+            border-radius: 10px;
+        }
+        
+        .footer-column ul {
+            list-style-type: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-column ul li a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #374151;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background-color: #8b5cf6;
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid #374151;
+            color: #9ca3af;
+            font-size: 14px;
+        }
+        
+        /* Progress Indicator */
+        .progress-container {
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+        
+        .progress-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .progress-text {
+            font-weight: 500;
+        }
+        
+        .progress-percentage {
+            color: #10b981;
+            font-weight: 600;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background-color: #e5e7eb;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #8b5cf6, #6366f1);
+            border-radius: 5px;
+            width: 45%;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .course-hero h1 {
+                font-size: 32px;
+            }
+            
+            .course-hero p {
+                font-size: 16px;
+            }
+            
+            .course-stats {
+                flex-direction: column;
+                gap: 15px;
+                align-items: center;
+            }
+            
+            .nav-items {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+            }
+            
+            .nav-items li {
+                flex: 0 0 auto;
+            }
+            
+            .nav-items a {
+                padding: 15px;
+                font-size: 14px;
+            }
+            
+            .content-section {
+                padding: 20px;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                font-size: 24px;
+            }
+            
+            .playlist-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 22px;
+            }
+            
+            .user-profile span {
+                display: none;
+            }
+            
+            .test-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .test-button {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+   <!-- Header -->
+<header>
+    <div class="container">
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                AdaptiveLearn
+            </div>
+            <div class="user-menu">
+                <div class="notifications">
+                    <i class="fas fa-bell"></i>
+                    <span class="notifications-badge">3</span>
+                </div>
+                <div class="user-profile">
+                    <img src="user1.jpg" alt="User Avatar">
+                    <span id="user-name">Loading...</span> <!-- Will be replaced dynamically -->
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Dynamic Username Script -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const userName = localStorage.getItem('loggedInUserName');
+
+        if (userName && userName.trim() !== '') {
+            const userNameElement = document.getElementById('user-name');
+            if (userNameElement) {
+                userNameElement.textContent = userName;
+            }
+        } else {
+            console.warn("No user logged in. Redirecting to login page.");
+            // Optional: Uncomment this line if you want to force login
+            // window.location.href = "login.html";
+        }
+    });
+</script>
+
+    
+    <!-- Course Hero Section -->
+    <section class="course-hero">
+        <div class="container">
+            <div class="course-badge">Web Development</div>
+            <h1>Web Development Masterclass</h1>
+            <p>Master HTML, CSS, JavaScript, and modern web development frameworks with our adaptive learning approach</p>
+            <div class="course-stats">
+                <div class="stat-item">
+                    <i class="fas fa-users"></i>
+                    <span>5,280+ Students</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-clock"></i>
+                    <span>42 Hours Content</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-star"></i>
+                    <span>4.8 Rating (1,250 Reviews)</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-certificate"></i>
+                    <span>Certificate Included</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Progress Indicator -->
+        <div class="progress-container">
+            <div class="progress-stats">
+                <span class="progress-text">Your Progress</span>
+                <span class="progress-percentage">45% Complete</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+        </div>
+        
+        <!-- Navigation Menu -->
+        <nav class="course-nav">
+            <ul class="nav-items">
+                <li><a href="#information" class="active"><i class="fas fa-info-circle"></i> Information</a></li>
+                <li><a href="#notes"><i class="fas fa-sticky-note"></i> Notes</a></li>
+                <li><a href="#tests"><i class="fas fa-tasks"></i> Tests</a></li>
+                <li><a href="#assignments"><i class="fas fa-clipboard-list"></i> Assignments</a></li>
+                <li><a href="#resources"><i class="fas fa-book"></i> Resources</a></li>
+                <li><a href="#feedback"><i class="fas fa-comment-alt"></i> Feedback</a></li>
+            </ul>
+        </nav>
+        
+        <!-- Information Section -->
+        <section id="information" class="content-section">
+            <h2 class="section-title"><i class="fas fa-info-circle"></i> Course Information</h2>
+            <div class="course-info">
+                <div class="info-card">
+                    <h3><i class="fas fa-chalkboard-teacher"></i> About This Course</h3>
+                    <p>This comprehensive web development course adapts to your learning style and pace, taking you from beginner to advanced level.</p>
+                    <p>You'll master HTML, CSS, JavaScript, and modern frameworks through hands-on projects and guided learning.</p>
+                </div>
+                <div class="info-card">
+                    <h3><i class="fas fa-user-tie"></i> Your Instructor</h3>
+                    <p>Prof. Sarah Johnson</p>
+                    <p>Web Development Expert with 15+ years of industry experience</p>
+                    <p>Previously led engineering teams at major tech companies</p>
+                </div>
+                <div class="info-card">
+                    <h3><i class="fas fa-calendar-alt"></i> Course Timeline</h3>
+                    <p>Duration: 12 weeks self-paced</p>
+                    <p>Live sessions: Tuesday and Thursday, 6:00 PM - 8:00 PM</p>
+                    <p>Office hours: Monday, 5:00 PM - 6:00 PM</p>
+                </div>
+                <div class="info-card" style="width: 147vh;">
+                    <h3><i class="fas fa-list-check"></i> Prerequisites</h3>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> Basic computer skills</li>
+                        <li><i class="fas fa-check-circle"></i> No prior programming experience required</li>
+                        <li><i class="fas fa-check-circle"></i> Eagerness to learn and practice</li>
+        <!-- Notes Section with Enhanced Design -->
+<section id="notes" class="content-section">
+    <h2 class="section-title"><i class="fas fa-sticky-note"></i> Course Notes</h2>
+    
+    <!-- Search and Filter Controls -->
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+        <div style="position: relative; width: 300px;">
+            <input type="text" placeholder="Search notes..." style="width: 100%; padding: 12px 15px 12px 40px; border-radius: 8px; border: 1px solid #ddd; font-size: 15px;">
+            <i class="fas fa-search" style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #8b5cf6;"></i>
+        </div>
+        <div style="display: flex; gap: 10px;">
+            <button style="padding: 10px 15px; background: #f8f9fa; border: 1px solid #ddd; border-radius: 6px; display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                <i class="fas fa-sort"></i> Sort by
+            </button>
+            <button style="padding: 10px 15px; background: #f8f9fa; border: 1px solid #ddd; border-radius: 6px; display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                <i class="fas fa-filter"></i> Filter
+            </button>
+        </div>
+    </div>
+    
+    <!-- Featured Note -->
+    <div style="background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%); border-radius: 12px; padding: 30px; margin-bottom: 30px; color: white; position: relative; overflow: hidden;">
+        <div style="position: absolute; right: -20px; bottom: -20px; font-size: 120px; opacity: 0.1;">
+            <i class="fas fa-lightbulb"></i>
+        </div>
+        <span style="background-color: #fcd34d; color: #7c2d12; padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: 600; margin-bottom: 15px; display: inline-block;">
+            <i class="fas fa-star"></i> FEATURED NOTE
+        </span>
+        <h3 style="font-size: 26px; margin: 10px 0 15px;">Responsive Web Design Principles</h3>
+        <p style="margin-bottom: 20px; font-size: 16px; max-width: 80%;">Master the art of creating websites that work flawlessly on any device. These comprehensive notes include practical examples and best practices.</p>
+        <div style="display: flex; gap: 15px;">
+            <a href="#" style="background-color: white; color: #8b5cf6; text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: 500; display: flex; align-items: center; gap: 8px;">
+                <i class="fas fa-eye"></i> View Notes
+            </a>
+            <a href="#" style="background-color: rgba(255,255,255,0.2); color: white; text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: 500; display: flex; align-items: center; gap: 8px;">
+                <i class="fas fa-download"></i> Download PDF
+            </a>
+        </div>
+    </div>
+    
+    <div class="notes-grid">
+        <div class="note-card" style="border-top-color: #f97316;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <h3><i class="fas fa-code" style="color: #f97316;"></i> HTML Fundamentals</h3>
+                <div style="background-color: #f97316; color: white; font-size: 12px; padding: 4px 8px; border-radius: 4px;">Beginner</div>
+            </div>
+            <div class="date"><i class="far fa-calendar-alt"></i> Updated: March 15, 2025</div>
+            <p>Comprehensive guide to HTML structure, semantic elements, forms, and best practices for accessible web development.</p>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
+                <a href="#" style="display: inline-flex; align-items: center; color: #8b5cf6; text-decoration: none; font-weight: 500; gap: 5px;">
+                    <i class="fas fa-arrow-right"></i> View Notes
+                </a>
+                <span style="color: #6b7280; font-size: 13px;"><i class="far fa-clock"></i> 25 min read</span>
+            </div>
+        </div>
+        
+        <div class="note-card" style="border-top-color: #3b82f6;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <h3><i class="fas fa-paint-brush" style="color: #3b82f6;"></i> CSS Styling</h3>
+                <div style="background-color: #3b82f6; color: white; font-size: 12px; padding: 4px 8px; border-radius: 4px;">Intermediate</div>
+            </div>
+            <div class="date"><i class="far fa-calendar-alt"></i> Updated: March 20, 2025</div>
+            <p>Detailed guide to CSS selectors, box model, flexbox, grid layouts, and responsive design principles with examples.</p>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
+                <a href="#" style="display: inline-flex; align-items: center; color: #8b5cf6; text-decoration: none; font-weight: 500; gap: 5px;">
+                    <i class="fas fa-arrow-right"></i> View Notes
+                </a>
+                <span style="color: #6b7280; font-size: 13px;"><i class="far fa-clock"></i> 30 min read</span>
+            </div>
+        </div>
+        
+        <div class="note-card" style="border-top-color: #f59e0b;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <h3><i class="fab fa-js" style="color: #f59e0b;"></i> JavaScript Basics</h3>
+                <div style="background-color: #f59e0b; color: white; font-size: 12px; padding: 4px 8px; border-radius: 4px;">Intermediate</div>
+            </div>
+            <div class="date"><i class="far fa-calendar-alt"></i> Updated: March 25, 2025</div>
+            <p>Core JavaScript concepts including variables, functions, DOM manipulation, events, and asynchronous programming.</p>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
+                <a href="#" style="display: inline-flex; align-items: center; color: #8b5cf6; text-decoration: none; font-weight: 500; gap: 5px;">
+                    <i class="fas fa-arrow-right"></i> View Notes
+                </a>
+                <span style="color: #6b7280; font-size: 13px;"><i class="far fa-clock"></i> 35 min read</span>
+            </div>
+        </div>
+        
+        <div class="note-card" style="border-top-color: #10b981;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <h3><i class="fas fa-server" style="color: #10b981;"></i> Backend Integration</h3>
+                <div style="background-color: #10b981; color: white; font-size: 12px; padding: 4px 8px; border-radius: 4px;">Advanced</div>
+            </div>
+            <div class="date"><i class="far fa-calendar-alt"></i> Updated: April 2, 2025</div>
+            <p>Notes on API integration, handling server requests, authentication methods, and data persistence strategies.</p>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
+                <a href="#" style="display: inline-flex; align-items: center; color: #8b5cf6; text-decoration: none; font-weight: 500; gap: 5px;">
+                    <i class="fas fa-arrow-right"></i> View Notes
+                </a>
+                <span style="color: #6b7280; font-size: 13px;"><i class="far fa-clock"></i> 40 min read</span>
+            </div>
+        </div>
+        
+        <div class="note-card" style="border-top-color: #8b5cf6;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <h3><i class="fas fa-layer-group" style="color: #8b5cf6;"></i> Modern Frameworks</h3>
+                <div style="background-color: #8b5cf6; color: white; font-size: 12px; padding: 4px 8px; border-radius: 4px;">Advanced</div>
+            </div>
+            <div class="date"><i class="far fa-calendar-alt"></i> Updated: April 1, 2025</div>
+            <p>Introduction to React, Vue, and Angular with comparisons, key concepts, and development workflows.</p>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
+                <a href="#" style="display: inline-flex; align-items: center; color: #8b5cf6; text-decoration: none; font-weight: 500; gap: 5px;">
+                    <i class="fas fa-arrow-right"></i> View Notes
+                </a>
+                <span style="color: #6b7280; font-size: 13px;"><i class="far fa-clock"></i> 45 min read</span>
+            </div>
+        </div>
+    </div>
+    <div class="playlist-section">
+        <div class="playlist-header">
+            <h3><i class="fab fa-youtube"></i> Course Videos</h3>
+            <a href="#" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
+        </div>
+        
+        <div class="video-player-container">
+            <div class="main-video-area">
+                <!-- Main video player -->
+                <div id="current-video-container">
+                    <iframe id="current-video" width="100%" height="450" src="" frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen></iframe>
+                </div>
+                
+                <!-- Video information -->
+                <div class="current-video-info">
+                    <h3 id="current-video-title">Select a video to start learning</h3>
+                    <div class="video-meta">
+                        <span id="current-video-views"><i class="fas fa-eye"></i> -- views</span>
+                        <span id="current-video-module">Module --</span>
+                        <span id="current-video-duration"><i class="far fa-clock"></i> --:--</span>
+                    </div>
+                </div>
+                
+                <!-- Doubt box -->
+                <div class="doubt-box">
+                    <h4>Ask Your Doubt <i class="fas fa-question-circle"></i></h4>
+                    <div class="doubt-messages" id="doubt-messages">
+                        <!-- Doubt messages will appear here -->
+                        <div class="system-message">Select a video and ask any questions as you watch!</div>
+                    </div>
+                    <div class="doubt-input-area">
+                        <textarea id="doubt-text" placeholder="Type your question here..."></textarea>
+                        <button id="send-doubt" class="send-doubt-btn">
+                            <i class="fas fa-paper-plane"></i> Send
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="playlist-grid">
+                <!-- Video 1 -->
+                <div class="video-card" data-video-id="qz0aGYrrlhU" data-title="Introduction to HTML" data-views="2,300" data-module="Module 1" data-duration="20:10">
+                    <div class="video-thumbnail">
+                        <img src="https://img.youtube.com/vi/qz0aGYrrlhU/mqdefault.jpg" alt="Introduction to HTML">
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <span class="video-duration">20:10</span>
+                    </div>
+                    <div class="video-info">
+                        <h4>Introduction to HTML</h4>
+                        <div class="video-meta">
+                            <span><i class="fas fa-eye"></i> 2,300 views</span>
+                            <span>Module 1</span>
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- Video 2 -->
+                <div class="video-card" data-video-id="UB1O30fR-EE" data-title="CSS Crash Course for Beginners" data-views="1,800" data-module="Module 1" data-duration="25:32">
+                    <div class="video-thumbnail">
+                        <img src="https://img.youtube.com/vi/UB1O30fR-EE/mqdefault.jpg" alt="CSS Crash Course for Beginners">
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <span class="video-duration">25:32</span>
+                    </div>
+                    <div class="video-info">
+                        <h4>CSS Crash Course for Beginners</h4>
+                        <div class="video-meta">
+                            <span><i class="fas fa-eye"></i> 1,800 views</span>
+                            <span>Module 1</span>
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- Video 3 -->
+                <div class="video-card" data-video-id="hdI2bqOjy3c" data-title="JavaScript Basics Tutorial" data-views="1,500" data-module="Module 2" data-duration="30:05">
+                    <div class="video-thumbnail">
+                        <img src="https://img.youtube.com/vi/hdI2bqOjy3c/mqdefault.jpg" alt="JavaScript Basics Tutorial">
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <span class="video-duration">30:05</span>
+                    </div>
+                    <div class="video-info">
+                        <h4>JavaScript Basics Tutorial</h4>
+                        <div class="video-meta">
+                            <span><i class="fas fa-eye"></i> 1,500 views</span>
+                            <span>Module 2</span>
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- Video 4 -->
+                <div class="video-card" data-video-id="jS4aFq5-91M" data-title="Building Your First Website" data-views="1,100" data-module="Module 2" data-duration="18:20">
+                    <div class="video-thumbnail">
+                        <img src="https://img.youtube.com/vi/jS4aFq5-91M/mqdefault.jpg" alt="Building Your First Website">
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <span class="video-duration">18:20</span>
+                    </div>
+                    <div class="video-info">
+                        <h4>Building Your First Website</h4>
+                        <div class="video-meta">
+                            <span><i class="fas fa-eye"></i> 1,100 views</span>
+                            <span>Module 2</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <style>
+    /* General layout styles */
+    .playlist-section {
+        font-family: Arial, sans-serif;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+    
+    .playlist-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #e5e5e5;
+        padding-bottom: 10px;
+    }
+    
+    .playlist-header h3 {
+        font-size: 1.5rem;
+        margin: 0;
+        color: #333;
+    }
+    
+    .playlist-header a {
+        text-decoration: none;
+        color: #3498db;
+        font-weight: bold;
+    }
+    
+    /* Video player container styles */
+    .video-player-container {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 20px;
+    }
+    
+    .main-video-area {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    #current-video-container {
+        width: 100%;
+        background: #000;
+        position: relative;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    .current-video-info {
+        padding: 15px;
+        background: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    
+    .current-video-info h3 {
+        margin: 0 0 10px 0;
+        color: #333;
+    }
+    
+    .video-meta {
+        display: flex;
+        gap: 15px;
+        color: #666;
+        font-size: 0.9rem;
+    }
+    
+    /* Doubt box styles */
+    .doubt-box {
+        margin-top: 15px;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        overflow: hidden;
+        background: #fff;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    
+    .doubt-box h4 {
+        margin: 0;
+        padding: 15px;
+        background: #f5f5f5;
+        border-bottom: 1px solid #e0e0e0;
+        color: #333;
+    }
+    
+    .doubt-messages {
+        height: 200px;
+        overflow-y: auto;
+        padding: 15px;
+        background: #fcfcfc;
+    }
+    
+    .system-message {
+        text-align: center;
+        color: #777;
+        font-style: italic;
+        padding: 10px;
+    }
+    
+    .user-message, .response-message {
+        margin-bottom: 10px;
+        padding: 8px 12px;
+        border-radius: 15px;
+        max-width: 80%;
+    }
+    
+    .user-message {
+        background: #e1f5fe;
+        margin-left: auto;
+        border-bottom-right-radius: 4px;
+    }
+    
+    .response-message {
+        background: #f5f5f5;
+        margin-right: auto;
+        border-bottom-left-radius: 4px;
+    }
+    
+    .doubt-input-area {
+        display: flex;
+        padding: 10px;
+        border-top: 1px solid #e0e0e0;
+        background: #f9f9f9;
+    }
+    
+    #doubt-text {
+        flex: 1;
+        border: 1px solid #ddd;
+        border-radius: 20px;
+        padding: 10px 15px;
+        resize: none;
+        height: 40px;
+        font-family: inherit;
+    }
+    
+    .send-doubt-btn {
+        background: #3498db;
+        color: white;
+        border: none;
+        border-radius: 20px;
+        padding: 0 15px;
+        margin-left: 10px;
+        cursor: pointer;
+        height: 40px;
+        transition: background 0.2s;
+    }
+    
+    .send-doubt-btn:hover {
+        background: #2980b9;
+    }
+    
+    /* Playlist grid styles */
+    .playlist-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        max-height: 700px;
+        overflow-y: auto;
+        padding-right: 5px;
+    }
+    
+    .video-card {
+        display: flex;
+        flex-direction: column;
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        transition: transform 0.2s, box-shadow 0.2s;
+        cursor: pointer;
+    }
+    
+    .video-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    .video-card.active {
+        border: 2px solid #3498db;
+    }
+    
+    .video-thumbnail {
+        position: relative;
+        width: 100%;
+    }
+    
+    .video-thumbnail img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+    
+    .play-button {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 40px;
+        height: 40px;
+        background: rgba(0,0,0,0.6);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        opacity: 0.8;
+        transition: opacity 0.2s, transform 0.2s;
+    }
+    
+    .video-card:hover .play-button {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+    
+    .video-duration {
+        position: absolute;
+        bottom: 8px;
+        right: 8px;
+        background: rgba(0,0,0,0.7);
+        color: white;
+        padding: 2px 6px;
+        font-size: 12px;
+        border-radius: 4px;
+    }
+    
+    .video-info {
+        padding: 10px;
+    }
+    
+    .video-info h4 {
+        margin: 0 0 5px 0;
+        font-size: 0.95rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    .video-meta span {
+        font-size: 0.8rem;
+        color: #777;
+        margin-right: 8px;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 900px) {
+        .video-player-container {
+            grid-template-columns: 1fr;
+        }
+        
+        .playlist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            max-height: none;
+        }
+    }
+    </style>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const videoCards = document.querySelectorAll('.video-card');
+        const currentVideo = document.getElementById('current-video');
+        const currentVideoTitle = document.getElementById('current-video-title');
+        const currentVideoViews = document.getElementById('current-video-views');
+        const currentVideoModule = document.getElementById('current-video-module');
+        const currentVideoDuration = document.getElementById('current-video-duration');
+        const doubtText = document.getElementById('doubt-text');
+        const sendDoubtBtn = document.getElementById('send-doubt');
+        const doubtMessages = document.getElementById('doubt-messages');
+        
+        // Initialize with the first video
+        if (videoCards.length > 0) {
+            const firstVideo = videoCards[0];
+            loadVideo(
+                firstVideo.getAttribute('data-video-id'),
+                firstVideo.getAttribute('data-title'),
+                firstVideo.getAttribute('data-views'),
+                firstVideo.getAttribute('data-module'),
+                firstVideo.getAttribute('data-duration')
+            );
+            firstVideo.classList.add('active');
+        }
+        
+        // Add click event to all video cards
+        videoCards.forEach(card => {
+            card.addEventListener('click', function() {
+                // Remove active class from all cards
+                videoCards.forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked card
+                this.classList.add('active');
+                
+                // Load the selected video
+                loadVideo(
+                    this.getAttribute('data-video-id'),
+                    this.getAttribute('data-title'),
+                    this.getAttribute('data-views'),
+                    this.getAttribute('data-module'),
+                    this.getAttribute('data-duration')
+                );
+                
+                // Add a message to the doubt box
+                addSystemMessage("Video changed. Feel free to ask questions about this topic!");
+            });
+        });
+        
+        // Function to load a video
+        function loadVideo(videoId, title, views, module, duration) {
+            currentVideo.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+            currentVideoTitle.textContent = title;
+            currentVideoViews.innerHTML = `<i class="fas fa-eye"></i> ${views} views`;
+            currentVideoModule.textContent = module;
+            currentVideoDuration.innerHTML = `<i class="far fa-clock"></i> ${duration}`;
+        }
+        
+        // Send doubt button functionality
+        sendDoubtBtn.addEventListener('click', function() {
+            sendDoubt();
+        });
+        
+        // Send doubt on Enter key (Shift+Enter for new line)
+        doubtText.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendDoubt();
+            }
+        });
+        
+        // Function to send doubt
+        function sendDoubt() {
+            const message = doubtText.value.trim();
+            if (message) {
+                addUserMessage(message);
+                doubtText.value = '';
+                
+                // Simulate a response (in a real app, this would come from your backend)
+                setTimeout(() => {
+                    simulateResponse(message);
+                }, 1000);
+            }
+        }
+        
+        // Add user message to doubt box
+        function addUserMessage(message) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'user-message';
+            messageDiv.textContent = message;
+            doubtMessages.appendChild(messageDiv);
+            scrollToBottom();
+        }
+        
+        // Add system message
+        function addSystemMessage(message) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'system-message';
+            messageDiv.textContent = message;
+            doubtMessages.appendChild(messageDiv);
+            scrollToBottom();
+        }
+        
+        // Add response message (simulated)
+        function addResponseMessage(message) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'response-message';
+            messageDiv.textContent = message;
+            doubtMessages.appendChild(messageDiv);
+            scrollToBottom();
+        }
+        
+        // Simple response simulation based on keywords
+        function simulateResponse(userMessage) {
+            const lowerMessage = userMessage.toLowerCase();
+            let response = "Thanks for your question! Our instructor will respond shortly.";
+            
+            // Very simple keyword detection (in a real app, you'd use a more sophisticated approach)
+            if (lowerMessage.includes('html')) {
+                response = "HTML stands for HyperText Markup Language. It's the standard language for creating web pages and web applications.";
+            } else if (lowerMessage.includes('css')) {
+                response = "CSS (Cascading Style Sheets) is used to style and layout web pages - for example, to alter the font, color, size, and spacing of your content.";
+            } else if (lowerMessage.includes('javascript') || lowerMessage.includes('js')) {
+                response = "JavaScript is a programming language that enables interactive web pages. It's an essential part of web applications.";
+            } else if (lowerMessage.includes('difficult') || lowerMessage.includes('hard') || lowerMessage.includes('confused')) {
+                response = "Don't worry! Learning web development takes time. Let me know which specific part you're finding challenging.";
+            }
+            
+            addResponseMessage(response);
+        }
+        
+        // Auto-scroll the doubt messages to the bottom
+        function scrollToBottom() {
+            doubtMessages.scrollTop = doubtMessages.scrollHeight;
+        }
+    });
+    </script>
+    
+    
+    <!-- Learning Path Section -->
+    <div class="learning-path">
+        <h3 class="section-title"><i class="fas fa-road"></i> Learning Path</h3>
+        <div class="path-container">
+            <div class="path-line"></div>
+    
+            <div class="path-item">
+                <div class="path-marker">1</div>
+                <div class="path-content">
+                    <h4>HTML Foundations</h4>
+                    <p>Learn the structure of web pages using HTML elements, forms, and tables.</p>
+                    <a href="#" class="btn">Start Module <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+    
+            <div class="path-item">
+                <div class="path-marker">2</div>
+                <div class="path-content">
+                    <h4>CSS Styling</h4>
+                    <p>Understand CSS properties, layouts (Flexbox, Grid), and responsive design.</p>
+                    <a href="#" class="btn">Start Module <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+    
+            <div class="path-item">
+                <div class="path-marker">3</div>
+                <div class="path-content">
+                    <h4>JavaScript Essentials</h4>
+                    <p>Learn the basics of JavaScript programming to add interactivity to websites.</p>
+                    <a href="#" class="btn">Start Module <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+    
+            <div class="path-item">
+                <div class="path-marker">4</div>
+                <div class="path-content">
+                    <h4>Project: Build Your First Website</h4>
+                    <p>Apply your skills to build a responsive personal portfolio website.</p>
+                    <a href="#" class="btn">Start Module <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+    
+            <div class="path-item">
+                <div class="path-marker">5</div>
+                <div class="path-content">
+                    <h4>Introduction to Deployment</h4>
+                    <p>Learn how to host your websites online using GitHub Pages and Netlify.</p>
+                    <a href="#" class="btn">Start Module <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <!-- View All Notes Button -->
+    <div style="text-align: center; margin-top: 30px;">
+        <a href="#" style="display: inline-flex; align-items: center; justify-content: center; background: #8b5cf6; color: white; text-decoration: none; padding: 12px 25px; border-radius: 8px; font-weight: 500; gap: 8px; transition: all 0.3s ease;">
+            <i class="fas fa-notes-medical"></i> View All Notes
+        </a>
+    </div>
+</section>
+
+<!-- Tests Section with Enhanced Design -->
+<section id="tests" class="content-section">
+    <h2 class="section-title"><i class="fas fa-tasks"></i> Quizzes & Tests</h2>
+    
+    <!-- Test Categories -->
+    <div style="display: flex; gap: 10px; margin-bottom: 30px; overflow-x: auto; padding-bottom: 10px;">
+        <button style="background: #8b5cf6; color: white; border: none; padding: 10px 20px; border-radius: 20px; font-weight: 500; white-space: nowrap;">All Tests</button>
+        <button style="background: #f8f9fa; border: 1px solid #ddd; padding: 10px 20px; border-radius: 20px; font-weight: 500; white-space: nowrap;">HTML</button>
+        <button style="background: #f8f9fa; border: 1px solid #ddd; padding: 10px 20px; border-radius: 20px; font-weight: 500; white-space: nowrap;">CSS</button>
+        <button style="background: #f8f9fa; border: 1px solid #ddd; padding: 10px 20px; border-radius: 20px; font-weight: 500; white-space: nowrap;">JavaScript</button>
+        <button style="background: #f8f9fa; border: 1px solid #ddd; padding: 10px 20px; border-radius: 20px; font-weight: 500; white-space: nowrap;">Frameworks</button>
+        <button style="background: #f8f9fa; border: 1px solid #ddd; padding: 10px 20px; border-radius: 20px; font-weight: 500; white-space: nowrap;">Backend</button>
+    </div>
+    
+    <!-- Featured Test -->
+    <div style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); border-radius: 12px; padding: 25px; margin-bottom: 30px; color: white; display: flex; justify-content: space-between; align-items: center;">
+        <div>
+            <span style="background-color: #fcd34d; color: #7c2d12; padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: 600; margin-bottom: 15px; display: inline-block;">
+                <i class="fas fa-trophy"></i> FEATURED QUIZ
+            </span>
+            <h3 style="font-size: 24px; margin: 10px 0;">Interactive JavaScript Challenge</h3>
+            <p style="margin-bottom: 20px; max-width: 600px;">Test your JavaScript skills with this interactive coding challenge. Complete real-world tasks and get instant feedback.</p>
+            <div style="display: flex; gap: 15px; align-items: center;">
+                <div style="display: flex; align-items: center; gap: 5px; background: rgba(255,255,255,0.2); padding: 8px 12px; border-radius: 6px;">
+                    <i class="fas fa-question-circle"></i> 
+                    <span>12 Questions</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 5px; background: rgba(255,255,255,0.2); padding: 8px 12px; border-radius: 6px;">
+                    <i class="fas fa-clock"></i> 
+                    <span>30 Minutes</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 5px; background: rgba(255,255,255,0.2); padding: 8px 12px; border-radius: 6px;">
+                    <i class="fas fa-code"></i> 
+                    <span>Coding Tasks</span>
+                </div>
+            </div>
+        </div>
+        <button class="test-button" style="background: white; color: #3b82f6; padding: 12px 25px; border: none; border-radius: 8px; font-weight: 600; display: flex; align-items: center; gap: 8px; transition: all 0.3s ease;">
+            <i class="fas fa-play"></i> Start Challenge
+        </button>
+    </div>
+    
+    <div class="test-list">
+        <div class="test-item" style="border-left-color: #f97316;">
+            <div class="test-info">
+                <h3><i class="fas fa-code" style="color: #f97316;"></i> HTML Fundamentals Quiz</h3>
+                <div class="test-meta">
+                    <div class="meta-item"><i class="fas fa-question-circle"></i> 15 Questions</div>
+                    <div class="meta-item"><i class="fas fa-clock"></i> 20 Minutes</div>
+                    <div class="meta-item"><i class="fas fa-trophy"></i> 70% Passing Score</div>
+                    <div class="meta-item" style="background-color: #dcfce7; color: #166534; padding: 3px 8px; border-radius: 4px; font-size: 12px;"><i class="fas fa-check-circle"></i> Beginner Friendly</div>
+                </div>
+            </div>
+            <button class="test-button" style="background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);">
+                <i class="fas fa-play"></i> Start Quiz
+            </button>
+        </div>
+        
+        <div class="test-item" style="border-left-color: #3b82f6;">
+            <div class="test-info">
+                <h3><i class="fas fa-paint-brush" style="color: #3b82f6;"></i> CSS Styling Assessment</h3>
+                <div class="test-meta">
+                    <div class="meta-item"><i class="fas fa-question-circle"></i> 20 Questions</div>
+                    <div class="meta-item"><i class="fas fa-clock"></i> 25 Minutes</div>
+                    <div class="meta-item"><i class="fas fa-trophy"></i> 75% Passing Score</div>
+                </div>
+            </div>
+            <button class="test-button" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);">
+                <i class="fas fa-play"></i> Start Quiz
+            </button>
+        </div>
+        
+        <div class="test-item" style="border-left-color: #f59e0b;">
+            <div class="test-info">
+                <h3><i class="fab fa-js" style="color: #f59e0b;"></i> JavaScript Basics Test</h3>
+                <div class="test-meta">
+                    <div class="meta-item"><i class="fas fa-question-circle"></i> 25 Questions</div>
+                    <div class="meta-item"><i class="fas fa-clock"></i> 30 Minutes</div>
+                    <div class="meta-item"><i class="fas fa-trophy"></i> 80% Passing Score</div>
+                </div>
+            </div>
+            <button class="test-button" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">
+                <i class="fas fa-play"></i> Start Quiz
+            </button>
+        </div>
+        
+        <div class="test-item" style="border-left-color: #10b981;">
+            <div class="test-info">
+                <h3><i class="fas fa-sitemap" style="color: #10b981;"></i> DOM Manipulation Quiz</h3>
+                <div class="test-meta">
+                    <div class="meta-item"><i class="fas fa-question-circle"></i> 15 Questions</div>
+                    <div class="meta-item"><i class="fas fa-clock"></i> 20 Minutes</div>
+                    <div class="meta-item"><i class="fas fa-trophy"></i> 75% Passing Score</div>
+                </div>
+            </div>
+            <button class="test-button" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                <i class="fas fa-play"></i> Start Quiz
+            </button>
+        </div>
+        
+        <div class="test-item" style="border-left-color: #8b5cf6;">
+            <div class="test-info">
+                <h3><i class="fas fa-graduation-cap" style="color: #8b5cf6;"></i> Final Comprehensive Exam</h3>
+                <div class="test-meta">
+                    <div class="meta-item"><i class="fas fa-question-circle"></i> 50 Questions</div>
+                    <div class="meta-item"><i class="fas fa-clock"></i> 90 Minutes</div>
+                    <div class="meta-item"><i class="fas fa-trophy"></i> 85% Passing Score</div>
+                    <div class="meta-item" style="background-color: #fee2e2; color: #991b1b; padding: 3px 8px; border-radius: 4px; font-size: 12px;"><i class="fas fa-lock"></i> Requires 80% Course Completion</div>
+                </div>
+            </div>
+            <button class="test-button" style="background: #e5e7eb; color: #6b7280; cursor: not-allowed;">
+                <i class="fas fa-lock"></i> Unlock at 80% Progress
+            </button>
+        </div>
+    </div>
+    
+    <!-- View All Tests Button -->
+    <div style="text-align: center; margin-top: 30px;">
+        <a href="#" style="display: inline-flex; align-items: center; justify-content: center; background: #3b82f6; color: white; text-decoration: none; padding: 12px 25px; border-radius: 8px; font-weight: 500; gap: 8px; transition: all 0.3s ease;">
+            <i class="fas fa-clipboard-list"></i> View All Tests
+        </a>
+    </div>
+</section>
+
+<!-- Feedback Section -->
+<section id="feedback" class="content-section">
+    <h2 class="section-title"><i class="fas fa-comment-alt"></i> Course Feedback</h2>
+    
+    <!-- Feedback Stats -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 40px;">
+        <div style="background-color: #f8f9fa; border-radius: 12px; padding: 20px; text-align: center;">
+            <div style="font-size: 40px; font-weight: 700; color: #8b5cf6; margin-bottom: 5px;">4.8</div>
+            <div style="color: #f59e0b; font-size: 18px; margin-bottom: 10px;">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+            </div>
+            <div style="color: #6b7280;">Average Rating</div>
+        </div>
+        
+        <div style="background-color: #f8f9fa; border-radius: 12px; padding: 20px; text-align: center;">
+            <div style="font-size: 40px; font-weight: 700; color: #8b5cf6; margin-bottom: 5px;">1,250</div>
+            <div style="color: #6b7280; margin-bottom: 10px;">
+                <i class="fas fa-users"></i>
+            </div>
+            <div style="color: #6b7280;">Total Reviews</div>
+        </div>
+        
+        <div style="background-color: #f8f9fa; border-radius: 12px; padding: 20px; text-align: center;">
+            <div style="font-size: 40px; font-weight: 700; color: #8b5cf6; margin-bottom: 5px;">93%</div>
+            <div style="color: #10b981; margin-bottom: 10px;">
+                <i class="fas fa-thumbs-up"></i>
+            </div>
+            <div style="color: #6b7280;">Satisfaction Rate</div>
+        </div>
+        
+        <div style="background-color: #f8f9fa; border-radius: 12px; padding: 20px; text-align: center;">
+            <div style="font-size: 40px; font-weight: 700; color: #8b5cf6; margin-bottom: 5px;">87%</div>
+            <div style="color: #3b82f6; margin-bottom: 10px;">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
+            <div style="color: #6b7280;">Completion Rate</div>
+        </div>
+    </div>
+    
+    <!-- Star Rating Distribution -->
+    <div style="background-color: #f8f9fa; border-radius: 12px; padding: 25px; margin-bottom: 30px;">
+        <h3 style="margin-bottom: 20px; font-size: 20px; color: #333;">Rating Distribution</h3>
+        
+        <div style="display: flex; align-items: center; margin-bottom: 12px;">
+            <div style="display: flex; align-items: center; width: 80px;">
+                <span style="margin-right: 8px;">5 stars</span>
+                <i class="fas fa-star" style="color: #f59e0b;"></i>
+            </div>
+            <div style="flex: 1; height: 12px; background-color: #e5e7eb; border-radius: 10px; overflow: hidden; margin: 0 15px;">
+                <div style="width: 78%; height: 100%; background-color: #10b981; border-radius: 10px;"></div>
+            </div>
+            <div style="width: 50px; text-align: right; font-weight: 500;">78%</div>
+        </div>
+        
+        <div style="display: flex; align-items: center; margin-bottom: 12px;">
+            <div style="display: flex; align-items: center; width: 80px;">
+                <span style="margin-right: 8px;">4 stars</span>
+                <i class="fas fa-star" style="color: #f59e0b;"></i>
+            </div>
+            <div style="flex: 1; height: 12px; background-color: #e5e7eb; border-radius: 10px; overflow: hidden; margin: 0 15px;">
+                <div style="width: 15%; height: 100%; background-color: #3b82f6; border-radius: 10px;"></div>
+            </div>
+            <div style="width: 50px; text-align: right; font-weight: 500;">15%</div>
+        </div>
+        
+        <div style="display: flex; align-items: center; margin-bottom: 12px;">
+            <div style="display: flex; align-items: center; width: 80px;">
+                <span style="margin-right: 8px;">3 stars</span>
+                <i class="fas fa-star" style="color: #f59e0b;"></i>
+            </div>
+            <div style="flex: 1; height: 12px; background-color: #e5e7eb; border-radius: 10px; overflow: hidden; margin: 0 15px;">
+                <div style="width: 5%; height: 100%; background-color: #f59e0b; border-radius: 10px;"></div>
+            </div>
+            <div style="width: 50px; text-align: right; font-weight: 500;">5%</div>
+        </div>
+        
+        <div style="display: flex; align-items: center; margin-bottom: 12px;">
+            <div style="display: flex; align-items: center; width: 80px;">
+                <span style="margin-right: 8px;">2 stars</span>
+                <i class="fas fa-star" style="color: #f59e0b;"></i>
+            </div>
+            <div style="flex: 1; height: 12px; background-color: #e5e7eb; border-radius: 10px; overflow: hidden; margin: 0 15px;">
+                <div style="width: 1%; height: 100%; background-color: #f97316; border-radius: 10px;"></div>
+            </div>
+            <div style="width: 50px; text-align: right; font-weight: 500;">1%</div>
+        </div>
+        
+        <div style="display: flex; align-items: center;">
+            <div style="display: flex; align-items: center; width: 80px;">
+                <span style="margin-right: 8px;">1 star</span>
+                <i class="fas fa-star" style="color: #f59e0b;"></i>
+            </div>
+            <div style="flex: 1; height: 12px; background-color: #e5e7eb; border-radius: 10px; overflow: hidden; margin: 0 15px;">
+                <div style="width: 1%; height: 100%; background-color: #ef4444; border-radius: 10px;"></div>
+            </div>
+            <div style="width: 50px; text-align: right; font-weight: 500;">1%</div>
+        </div>
+    </div>
+    
+    <!-- Student Reviews -->
+   
+    
+        <!-- Feedback Form -->
+        <form id="feedback-form" class="feedback-form" action="https://formsubmit.co/yogambekar07@gmail.com" method="POST">
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="name"><i class="fas fa-user"></i> Your Name</label>
+                    <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                </div>
+    
+                <div class="form-group">
+                    <label for="email"><i class="fas fa-envelope"></i> Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                </div>
+            </div>
+    
+            <div class="form-group">
+                <label for="rating"><i class="fas fa-star"></i> Course Rating</label>
+                <select id="rating" name="rating" required>
+                    <option value="">Select Rating</option>
+                    <option value="5 Stars">⭐⭐⭐⭐⭐</option>
+                    <option value="4 Stars">⭐⭐⭐⭐</option>
+                    <option value="3 Stars">⭐⭐⭐</option>
+                    <option value="2 Stars">⭐⭐</option>
+                    <option value="1 Star">⭐</option>
+                </select>
+            </div>
+    
+            <div class="form-group">
+                <label for="feedbackMessage"><i class="fas fa-comment-dots"></i> Your Feedback</label>
+                <textarea id="feedbackMessage" name="feedbackMessage" placeholder="What did you like about the course? What could be improved?" required></textarea>
+            </div>
+    
+            <div class="form-group">
+                <label for="suggestions"><i class="fas fa-lightbulb"></i> Suggestions</label>
+                <textarea id="suggestions" name="suggestions" placeholder="Do you have any suggestions for improving this course?"></textarea>
+            </div>
+    
+            <!-- Hidden fields -->
+            <input type="hidden" name="_subject" value="New Course Feedback!">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_next" value="https://yourdomain.com/thank-you.html"> <!-- You should create a thank-you page -->
+    
+            <button type="submit" class="submit-btn">
+                <i class="fas fa-paper-plane"></i> Submit Feedback
+            </button>
+        </form>
+    
+        <!-- Success Message -->
+        <div id="success-message" style="display:none; color:green; margin-top:15px;">
+            ✅ Feedback submitted successfully!
+        </div>
+    
+        <!-- Feedback Display -->
+        <div id="feedback-container" style="margin-top:30px;">
+            <h3>Student Feedbacks</h3>
+        </div>
+    </section>
+    
+    <script>
+        const feedbackForm = document.getElementById('feedback-form');
+        const feedbackContainer = document.getElementById('feedback-container');
+    
+        feedbackForm.addEventListener('submit', function() {
+            // No preventDefault() here
+            // So that form actually POSTs to FormSubmit
+    
+            const name = document.getElementById('name').value;
+            const rating = document.getElementById('rating').value;
+            const feedbackMessageText = document.getElementById('feedbackMessage').value;
+            const suggestions = document.getElementById('suggestions').value;
+    
+            // Store in LocalStorage (optional for better real-time update)
+            localStorage.setItem('lastFeedback', JSON.stringify({
+                name,
+                rating,
+                feedbackMessageText,
+                suggestions
+            }));
+        });
+    
+        window.addEventListener('load', () => {
+            const feedback = JSON.parse(localStorage.getItem('lastFeedback'));
+            if (feedback) {
+                const feedbackItem = document.createElement('div');
+                feedbackItem.style.border = "1px solid #ccc";
+                feedbackItem.style.padding = "10px";
+                feedbackItem.style.margin = "10px 0";
+                feedbackItem.style.borderRadius = "5px";
+                feedbackItem.innerHTML = `
+                    <h4>${feedback.name} - <span style="color:orange;">${feedback.rating}</span></h4>
+                    <p><strong>Feedback:</strong> ${feedback.feedbackMessageText}</p>
+                    <p><strong>Suggestions:</strong> ${feedback.suggestions}</p>
+                `;
+                feedbackContainer.appendChild(feedbackItem);
+    
+                localStorage.removeItem('lastFeedback');
+            }
+        });
+    </script>
+                <script>
+                    window.addEventListener('DOMContentLoaded', () => {
+                        const userName = localStorage.getItem('loggedInUserName');
+                        if (userName) {
+                            const userNameElement = document.getElementById('user-name');
+                            if (userNameElement) {
+                                userNameElement.innerText = userName;
+                            }
+                        }
+                    });
+                </script>
+                       

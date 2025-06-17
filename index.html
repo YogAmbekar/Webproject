@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Your Dreams | SyntaxA Learning Platform</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+        
+        :root {
+            --primary-color: #6a0dad;
+            --secondary-color: #9b4dca;
+            --accent-color: #ffd700;
+            --dark-color: #343a40;
+            --light-color: #f8f9fa;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light-color);
+            color: #333;
+            overflow-x: hidden;
+        }
+        
+        /* Navbar Styles */
+        .navbar {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            padding: 1rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .navbar-brand {
+            color: white !important;
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .navbar-brand i {
+            margin-right: 0.5rem;
+        }
+        
+        .nav-link {
+            color: rgba(255, 255, 255, 0.9) !important;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            margin: 0 0.25rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: white !important;
+            transform: translateY(-2px);
+        }
+        
+        .nav-link i {
+            margin-right: 0.3rem;
+        }
+        
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1472&q=80');
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            padding: 2rem;
+        }
+        
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .hero-subtitle {
+            font-size: 1.5rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+        
+        .cta-button {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(106, 13, 173, 0.4);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(106, 13, 173, 0.6);
+            color: white;
+        }
+        
+        /* Courses Section */
+        .section-title {
+            text-align: center;
+            font-weight: 700;
+            margin: 3rem 0;
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 2px;
+        }
+        
+        .courses-container {
+            padding: 4rem 0;
+            background: white;
+            position: relative;
+        }
+        
+        .course-card {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            margin-bottom: 2rem;
+            border: none;
+            height: 100%;
+            position: relative;
+        }
+        
+        .course-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(106, 13, 173, 0.2);
+        }
+        
+        .course-img {
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .course-card:hover .course-img {
+            transform: scale(1.05);
+        }
+        
+        .card-body {
+            padding: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .course-title {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .course-description {
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .course-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--accent-color);
+            color: var(--dark-color);
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-enroll {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            width: 100%;
+            color: white;
+        }
+        
+        .btn-enroll:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(106, 13, 173, 0.3);
+            color: white;
+        }
+        
+        /* Course Modal */
+        .modal-content {
+            border-radius: 15px;
+            overflow: hidden;
+            border: none;
+        }
+        
+        .modal-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-bottom: none;
+        }
+        
+        .modal-title {
+            font-weight: 600;
+        }
+        
+        .close {
+            color: white;
+            opacity: 1;
+            text-shadow: none;
+        }
+        
+        .course-features {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .course-features li {
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .course-features i {
+            margin-right: 0.75rem;
+            color: var(--primary-color);
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* About Section */
+        .about-section {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, #f5f5f5, #e9ecef);
+        }
+        
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .about-title {
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+        
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 3rem 0;
+        }
+        
+        .footer-title {
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--accent-color);
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .social-icons a {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            background: var(--primary-color);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 1.5rem;
+            margin-top: 2rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 2.8rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.3rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            
+            .navbar-brand {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const userName = localStorage.getItem('loggedInUserName');
+        if (userName) {
+            document.getElementById('user-name').innerText = userName;
+        } else {
+            document.getElementById('user-name').innerText = "Guest";
+        }
+    });
+</script>
+    
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-code me-2"></i>SyntaxA
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#home"><i class="fas fa-home me-1"></i> Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#courses"><i class="fas fa-laptop-code me-1"></i> Courses</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about"><i class="fas fa-info-circle me-1"></i> About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact"><i class="fas fa-envelope me-1"></i> Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="home">
+        <div class="hero-content animate__animated animate__fadeIn">
+            <h1 class="hero-title">Code Your Dreams</h1>
+            <p class="hero-subtitle">Learn for Free, Build for Life! Master in-demand tech skills with our interactive courses.</p>
+            <button class="btn cta-button animate__animated animate__pulse animate__infinite" data-bs-toggle="modal" data-bs-target="#registerModal">
+                <i class="fas fa-user-plus me-2"></i>Join Now for Free
+            </button>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section class="courses-container" id="courses">
+        <div class="container">
+            <h2 class="section-title animate__animated animate__fadeIn">Our Courses</h2>
+            
+            <div class="row">
+                <!-- Course 1 -->
+                <div class="col-lg-3 col-md-6 mb-4 animate__animated animate__fadeInUp">
+                    <div class="course-card h-100">
+                        <span class="course-badge">Popular</span>
+                        <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1528&q=80" class="card-img-top course-img" alt="Web Development">
+                        <div class="card-body">
+                            <h5 class="course-title"><i class="fas fa-globe me-2"></i>Web Development</h5>
+                            <p class="course-description">Master HTML, CSS, JavaScript and modern frameworks to build responsive websites.</p>
+                            <button class="btn btn-enroll" data-bs-toggle="modal" data-bs-target="#webDevModal"onclick="location.href='webdev.html'">
+                                <i class="fas fa-play me-1"></i> Start Learning
+                            </button> 
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Course 2 -->
+                <div class="col-lg-3 col-md-6 mb-4 animate__animated animate__fadeInUp animate__delay-1s">
+                    <div class="course-card h-100">
+                        <img src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" class="card-img-top course-img" alt="Python Programming">
+                        <div class="card-body">
+                            <h5 class="course-title"><i class="fab fa-python me-2"></i>Python Programming</h5>
+                            <p class="course-description">Learn Python fundamentals, data structures, and algorithms for AI and Data Science.</p>
+                            <button class="btn btn-enroll" data-bs-toggle="modal" data-bs-target="#pythonModal" onclick="location.href='python.html'">
+                                <i class="fas fa-play me-1"></i> Start Learning
+                            </button>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Course 3 -->
+                <div class="col-lg-3 col-md-6 mb-4 animate__animated animate__fadeInUp animate__delay-2s">
+                    <div class="course-card h-100">
+                        <span class="course-badge">New</span>
+                        <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" class="card-img-top course-img" alt="React Development">
+                        <div class="card-body">
+                            <h5 class="course-title"><i class="fab fa-react me-2"></i>React Development</h5>
+                            <p class="course-description">Build modern web applications with React, Redux, and React Router.</p>
+                            <button class="btn btn-enroll" data-bs-toggle="modal" data-bs-target="#reactModal">
+                                <i class="fas fa-play me-1"></i> Start Learning
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Course 4 -->
+                <div class="col-lg-3 col-md-6 mb-4 animate__animated animate__fadeInUp animate__delay-3s">
+                    <div class="course-card h-100">
+                        <img src="https://images.unsplash.com/photo-1610563166150-b34df4f3bcd6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1376&q=80" class="card-img-top course-img" alt="Java Programming">
+                        <div class="card-body">
+                            <h5 class="course-title"><i class="fab fa-java me-2"></i>Java Programming</h5>
+                            <p class="course-description">Master Java from basics to advanced concepts including Spring framework.</p>
+                            <button class="btn btn-enroll" data-bs-toggle="modal" data-bs-target="#javaModal">
+                                <i class="fas fa-play me-1"></i> Start Learning
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Second Row of Courses -->
+            <div class="row">
+                <!-- Course 5 -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="course-card h-100">
+                        <img src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1472&q=80" class="card-img-top course-img" alt="SQL & Databases">
+                        <div class="card-body">
+                            <h5 class="course-title"><i class="fas fa-database me-2"></i>SQL & Databases</h5>
+                            <p class="course-description">Master database management, queries, and optimization techniques.</p>
+                            <button class="btn btn-enroll" data-bs-toggle="modal" data-bs-target="#sqlModal">
+                                <i class="fas fa-play me-1"></i> Start Learning
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Course 6 -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="course-card h-100">
+                        <span class="course-badge">Hot</span>
+                        <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1465&q=80" class="card-img-top course-img" alt="AI & Machine Learning">
+                        <div class="card-body">
+                            <h5 class="course-title"><i class="fas fa-brain me-2"></i>AI & ML</h5>
+                            <p class="course-description">Dive into AI and ML technologies with Python and TensorFlow.</p>
+                            <button class="btn btn-enroll" data-bs-toggle="modal" data-bs-target="#aiModal">
+                                <i class="fas fa-play me-1"></i> Start Learning
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Course 7 -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="course-card h-100">
+                        <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" class="card-img-top course-img" alt="Data Science">
+                        <div class="card-body">
+                            <h5 class="course-title"><i class="fas fa-chart-line me-2"></i>Data Science</h5>
+                            <p class="course-description">Learn data analysis, visualization, and machine learning techniques.</p>
+                            <button class="btn btn-enroll" data-bs-toggle="modal" data-bs-target="#dataScienceModal">
+                                <i class="fas fa-play me-1"></i> Start Learning
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Course 8 -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="course-card h-100">
+                        <span class="course-badge">Advanced</span>
+                        <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" class="card-img-top course-img" alt="Cybersecurity">
+                        <div class="card-body">
+                            <h5 class="course-title"><i class="fas fa-shield-alt me-2"></i>Cybersecurity</h5>
+                            <p class="course-description">Learn ethical hacking, penetration testing, and security best practices.</p>
+                            <button class="btn btn-enroll" data-bs-toggle="modal" data-bs-target="#cyberModal">
+                                <i class="fas fa-play me-1"></i> Start Learning
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <div class="container">
+            <div class="about-content">
+                <h2 class="about-title">Why Choose SyntaxA?</h2>
+                <p class="about-text">
+                    SyntaxA is an innovative learning platform designed to help you master in-demand tech skills through 
+                    interactive courses, hands-on projects, and personalized learning paths. Our mission is to make 
+                    quality tech education accessible to everyone, everywhere.
+                </p>
+                <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body text-center">
+                                <i class="fas fa-graduation-cap fa-3x mb-3" style="color: var(--primary-color);"></i>
+                                <h5>Expert Instructors</h5>
+                                <p>Learn from industry professionals with real-world experience.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body text-center">
+                                <i class="fas fa-laptop-code fa-3x mb-3" style="color: var(--primary-color);"></i>
+                                <h5>Hands-on Projects</h5>
+                                <p>Build portfolio-worthy projects that demonstrate your skills.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body text-center">
+                                <i class="fas fa-certificate fa-3x mb-3" style="color: var(--primary-color);"></i>
+                                <h5>Career Support</h5>
+                                <p>Get help with resumes, interviews, and job placement.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <h4 class="footer-title"><i class="fas fa-code me-2"></i>SyntaxA</h4>
+                    <p>Empowering the next generation of developers through accessible, high-quality tech education.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5 class="footer-title">Quick Links</h5>
+                    <ul class="footer-links">
+                        <li><a href="#home"><i class="fas fa-chevron-right me-1"></i> Home</a></li>
+                        <li><a href="#courses"><i class="fas fa-chevron-right me-1"></i> Courses</a></li>
+                        <li><a href="#about"><i class="fas fa-chevron-right me-1"></i> About</a></li>
+                        <li><a href="#contact"><i class="fas fa-chevron-right me-1"></i> Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="footer-title">Courses</h5>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right me-1"></i> Web Development</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right me-1"></i> Python Programming</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right me-1"></i> Data Science</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right me-1"></i> Cybersecurity</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="footer-title">Contact Us</h5>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt me-2"></i> Dy Patil Akurdi , Pune , 411044</li>
+                        <li><i class="fas fa-phone me-2"></i> +91 7666156509</li>
+                        <li><i class="fas fa-envelope me-2"></i> info@syntaxa.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 SyntaxA. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Registration Modal -->
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="registerModalLabel">Create Your Free Account</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="registerName" class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="registerName" placeholder="Enter your name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="registerEmail" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="registerEmail" placeholder="Enter your email">
+                        </div>
+                        <div class="mb-3">
+                            <label for="registerPassword" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="registerPassword" placeholder="Create a password">
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Sign Up for Free</button>
+                    </form>
+                    <div class="text-center mt-3">
+                        <p>Already have an account? <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Log in</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">Welcome Back!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="loginEmail" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="loginEmail" placeholder="Enter your email">
+                        </div>
+                        <div class="mb-3">
+                            <label for="loginPassword" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="loginPassword" placeholder="Enter your password">
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="rememberMe">
+                            <label class="form-check-label" for="rememberMe">Remember me</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Log In</button>
+                    </form>
+                    <div class="text-center mt-3">
+                        <p>Don't have an account? <a href="#" data-bs-toggle="modal" data-bs-target="#registerModal">Sign up</a></p>
+                        <p><a href="#">Forgot password?</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Course Modals -->
+    <!-- Web Development Modal -->
+    <div class="modal fade" id="webDevModal" tabindex="-1" aria-labelledby="webDevModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="webDevModalLabel"><i class="fas fa-globe me-2"></i>Web Development Course</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1528&q=80" class="img-fluid rounded mb-3" alt="Web Development">
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary">Enroll Now</button>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Course Description</h6>
+                            <p>Master the fundamentals of web development with HTML, CSS, and JavaScript. Learn to build responsive websites and web applications using modern frameworks like React and Vue.js.</p>
+                            
+                            <h6 class="mt-4">Course Features</h6>
+                            <ul class="course-features">
+                                <li><i class="fas fa-video"></i> 50+ Video Lectures</li>
+                                <li><i class="fas fa-tasks"></i> 10 Practice Projects</li>
+                                <li><i class="fas fa-question-circle"></i> 5 Test Series</li>
+                                <li><i class="fas fa-certificate"></i> Completion Certificate</li>
+                                <li><i class="fas fa-clock"></i> 3 Months Access</li>
+                                <li><i class="fas fa-chart-line"></i> Beginner to Advanced</li>
+                            </ul>
+                            
+                            <h6 class="mt-4">What You'll Learn</h6>
+                            <ul>
+                                <li>HTML5 and CSS3 fundamentals</li>
+                                <li>JavaScript and ES6+ features</li>
+                                <li>Responsive design principles</li>
+                                <li>Front-end frameworks (React, Vue)</li>
+                                <li>Back-end basics with Node.js</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Python Modal -->
+    <!-- <div class="modal fade" id="pythonModal" tabindex="-1" aria-labelledby="pythonModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="pythonModalLabel"><i class="fab fa-python me-2"></i>Python Programming Course</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class=" -->
